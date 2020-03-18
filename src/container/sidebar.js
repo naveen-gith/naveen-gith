@@ -20,19 +20,19 @@ class SideNav extends React.Component {
             activePath: props.location.pathname,
             items: [
                 {
-                  path: '/', /* path is used as id to check which NavItem is active basically */
-                  name: 'Home',
-                  css: 'fa fa-fw fa-home',
-                  key: 1 /* Key is required, else console throws error. Does this please you Mr. Browser?! */
+                    path: '/home', /* path is used as id to check which NavItem is active basically */
+                    name: 'Records List',
+                    css: 'fa fa-fw  fa-database',
+                    key: 1 /* Key is required, else console throws error. Does this please you Mr. Browser?! */
                 },
                 {
-                  path: '/about',
-                  name: 'About',
-                  css: 'fa fa-fw fa-clock',
-                  key: 2
+                    path: '/about',
+                    name: 'Upload File',
+                    css: 'fa fa-fw fa-upload',
+                    key: 2
                 },
-            
-              ]
+
+            ]
         }
     }
 
@@ -42,12 +42,12 @@ class SideNav extends React.Component {
 
     render() {
         const { items, activePath } = this.state;
-        return(
+        return (
             <StyledSideNav>
                 {
                     items.map((item) => {
                         return (
-                            <NavItem 
+                            <NavItem
                                 path={item.path}
                                 name={item.name}
                                 css={item.css}
@@ -81,6 +81,11 @@ const StyledNavItem = styled.div`
 `;
 
 class NavItem extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
     handleClick = () => {
         const { path, onItemClick, } = this.props;
         onItemClick(path);
@@ -88,7 +93,7 @@ class NavItem extends React.Component {
 
     render() {
         const { active } = this.props;
-        return(
+        return (
             <StyledNavItem active={active}>
                 <Link to={this.props.path} className={this.props.css} onClick={this.handleClick}>
                     <NavIcon></NavIcon>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './EditRecord.css';
 import { Divider } from '@material-ui/core';
+import { connect } from 'react-redux'
 class EditRecord extends React.Component {
     constructor(props) {
         super(props);
@@ -14,7 +15,7 @@ class EditRecord extends React.Component {
                 language2: '',
                 gender: '',
                 speciality: '',
-                Notes: '',
+                Notes: '',  
                 status: '',
                 disposition: ''
             }
@@ -24,7 +25,11 @@ class EditRecord extends React.Component {
         // this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-
+    componentDidMount(){
+        this.setState({
+            record:this.props.selectedData
+        })
+    }
     handleChange(event) {
         console.log(event.target);
         const { name, value } = event.target;
@@ -51,6 +56,7 @@ class EditRecord extends React.Component {
     }
     dropdwon(name, placeholder, value) {
         return <React.Fragment>
+            
             <select className='Form-Input browser-default custom-select col-sm-4 drop'
                 value={this.state.selectValue}
                 placeholder={placeholder}
@@ -65,7 +71,8 @@ class EditRecord extends React.Component {
     render() {
 
         const recordform = <React.Fragment>
-            <div className="editform">
+              <div className="background">
+            <div >
                 {this.formBox('firstName', 'First Name', this.state.record.firstName)}
                 {this.formBox('middleName', 'Middle Name', this.state.record.middleName)}
                 {this.formBox('lastName', 'Last Name', this.state.record.lastName)}
@@ -80,7 +87,7 @@ class EditRecord extends React.Component {
                 <div className="col-sm-12 block">
 
                     <textarea
-                        className='Form-Input col-sm-6'
+                        className='Form-Input col-sm-6 notes'
                         type='text'
                         name='notes'
                         placeholder='Notes'
@@ -109,10 +116,19 @@ class EditRecord extends React.Component {
                     </select>
                 </div>
             </div>
-
+            <div className="submit">
+            <button >Submit</button>
+            </div>
+            </div>
         </React.Fragment>
 
         return recordform;
     }
 }
-export default EditRecord;
+const mapStateToProps = (state) => ({
+    selectedData: state.selectedData.data
+})
+const mapDispatchToProps = (dispatch) => {
+    return {}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(EditRecord);

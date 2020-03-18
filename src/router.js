@@ -7,19 +7,21 @@ import Sidebar from "./container/sidebar";
 import Records from "./container/records";
 import ExcelReader from "./container/Excel";
 import EditRecord from "./container/EditRecord";
+import home from "./container/home";
+
 
 export default () => {
     return (
         <React.Fragment>
         <Router>
-          <NavigationBar />
-  
-          <Sidebar />
+        
   
           <Switch>
-            <Route exact path="/" component={ExcelReader} />
-            <Route path="/about" component={EditRecord} />
-            <Route path="/records" component={Records} />
+            
+          <Route path="/" exact component={Login} />
+            <Route path="/home" component={home} />
+            {/* <Route exact path="/edit" component={EditRecord} /> */}
+            {/* <Route path="/" component={Records} /> */}
             {/* <Route component={NoMatch} /> */}
           </Switch>
         </Router>

@@ -1,0 +1,25 @@
+.pending{
+    color:orange;
+    font-size: 15px
+}
+.normal{
+    color: green;
+    font-size: 15px
+}
+.record{
+    background-color: #F6F6F6;
+    padding: 3%;
+    margin: 2%;
+    margin-left: 12%;
+}
+.title{
+    text-align: initial;
+}
+.block{
+    display: flex;
+}
+.btn{
+    width: 100px;
+    background: #1FABCC;
+    color: white;
+}

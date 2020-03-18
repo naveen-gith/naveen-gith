@@ -67,9 +67,9 @@ class ExcelReader extends Component {
         <input className="btnFile" type="file"  id="file" onChange={this.handleChange} />
         </div>
         <br />
-        <input   type='submit' 
-          value="Process Triggers"
-          onClick={this.handleFile} />
+        <button   type='submit' 
+   
+          onClick={this.handleFile}>Submit</button>
           </div>
           </div>
       
