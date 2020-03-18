@@ -6,6 +6,7 @@ import { NavigationBar } from "./container/NavigationBar";
 import Sidebar from "./container/sidebar";
 import Records from "./container/records";
 import ExcelReader from "./container/Excel";
+import EditRecord from "./container/EditRecord";
 
 export default () => {
     return (
@@ -17,7 +18,8 @@ export default () => {
   
           <Switch>
             <Route exact path="/" component={ExcelReader} />
-            <Route path="/about" component={Records} />
+            <Route path="/about" component={EditRecord} />
+            <Route path="/records" component={Records} />
             {/* <Route component={NoMatch} /> */}
           </Switch>
         </Router>
