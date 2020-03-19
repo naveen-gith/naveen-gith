@@ -44,9 +44,10 @@ module.exports = {
   createDoctors: async (req, res, next) => {
     console.log(req.body);
     try {
-      const founduser = await Doctors.insertMany(req.body.data).exec();
-      res.status(200).json({ data: founduser });
+      const founduser = await Doctors.insertMany(req.body)
+      res.status(200).json({founduser });
     } catch (error) {
+      console.log(error);
       res.status(400).json({ data: error });
     }
 
@@ -66,7 +67,7 @@ module.exports = {
   updateDoctors: async (req, res, next) => {
     console.log(req.body);
     try {
-      const founduser = await Doctors.findByIdAndUpdate(req.body).exec();
+      const founduser = await Doctors.findByIdAndUpdate(req.body._id,{ '$set':req.body}).exec();
       res.status(200).json('updaed successfully');
     } catch (error) {
       res.status(400).json({ data: error });

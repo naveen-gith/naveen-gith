@@ -9,7 +9,7 @@ let initialState = {
         profDesignation: '',
         language1: '',
         language2: '',
-        gender: '',
+        Gender: '',
         speciality: '',
         Notes: '',
         status: '',

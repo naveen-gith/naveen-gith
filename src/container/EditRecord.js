@@ -13,7 +13,7 @@ class EditRecord extends React.Component {
                 profDesignation: '',
                 language1: '',
                 language2: '',
-                gender: '',
+                Gender: '',
                 speciality: '',
                 Notes: '',  
                 status: '',
@@ -22,13 +22,42 @@ class EditRecord extends React.Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
+         this.onSubmit = this.onSubmit.bind(this);
     }
 
     componentDidMount(){
         this.setState({
             record:this.props.selectedData
         })
+    }
+
+    onSubmit(){
+        var token=localStorage.getItem('token')
+       console.log( this.state.record);
+       fetch('http://localhost:4000/users/update', {
+  method: 'PATCH',
+  body: JSON.stringify(this.state.record),
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization':token
+  }
+}).then(response => {
+    
+var  statusCode = response.status;
+  if (statusCode == 401) {
+    return 
+  }else{
+
+      return response.json();
+  }
+
+}).then((parsedJSON) => {
+    console.log(parsedJSON)
+  
+    this.props.history.push('/home');
+});
+   
+
     }
     handleChange(event) {
         console.log(event.target);
@@ -60,9 +89,10 @@ class EditRecord extends React.Component {
             <select className='Form-Input browser-default custom-select col-sm-4 drop'
                 value={this.state.selectValue}
                 placeholder={placeholder}
+                name='Gender'
                 onChange={this.handleChange} >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
 
             </select>
         </React.Fragment>
@@ -80,7 +110,7 @@ class EditRecord extends React.Component {
                 {this.formBox('language1', 'Language 1', this.state.record.language1)}
                 {this.formBox('language2', 'Language 2', this.state.record.language2)}
                 <div className="col-sm-12 as">
-                    {this.dropdwon('gender', 'Gender', this.state.record.gender)}
+                    {this.dropdwon('Gender', 'Gender', this.state.record.Gender)}
                     {this.formBox('speciality', 'Speciality', this.state.record.speciality)}
                 </div>
                 <Divider></Divider>
@@ -96,7 +126,9 @@ class EditRecord extends React.Component {
 
                     <select className='Form-Input col-sm-2 browser-default custom-select drop'
                         value={this.state.selectValue}
+                        name='status'
                         placeholder='Status'
+                       
                         onChange={this.handleChange} >
                         <option value="Verified">Verified</option>
                         <option value="Verified With Edits">Verified With Edits</option>
@@ -107,6 +139,7 @@ class EditRecord extends React.Component {
                     <select className='Form-Input col-sm-2  browser-default custom-select drop'
                         value={this.state.selectValue}
                         placeholder='Disposition'
+                        name='disposition'
                         onChange={this.handleChange} >
                         <option value="Verified">Verified</option>
                         <option value="Verified With Edits">Verified With Edits</option>
@@ -117,7 +150,7 @@ class EditRecord extends React.Component {
                 </div>
             </div>
             <div className="submit">
-            <button >Submit</button>
+            <button  onClick={()=>this.onSubmit()}>Submit</button>
             </div>
             </div>
         </React.Fragment>

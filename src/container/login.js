@@ -6,7 +6,7 @@ class Login extends React.Component {
         super(props);
         this.state = {
             login: {
-                email: '',
+                userName: '',
                 password: ''
             },
         };
@@ -16,7 +16,7 @@ class Login extends React.Component {
 
 
     handleChange(event) {
-        console.log(event.target);
+   
         const { name, value } = event.target;
         const { login } = this.state;
 
@@ -28,17 +28,41 @@ class Login extends React.Component {
         });
     }
     handleSubmit() {
-        console.log(this.state);
-    }
+        let statusCode;
+        console.log(this.state.login);
+        fetch('http://localhost:4000/users/signIn', {
+            method: 'POST',
+            body: JSON.stringify(this.state.login),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then(response => {
+              
+          var  statusCode = response.status;
+            if (statusCode == 401) {
+              return 
+            }else{
+
+                return response.json();
+            }
+ 
+          }).then((parsedJSON) => {
+              console.log(parsedJSON)
+              localStorage.setItem('token', parsedJSON.token);
+              this.props.history.push('/home');
+          });
+        }
+    
+    
 
     render() {
         const loginForm = <React.Fragment>
             <input
                 className='Form-Input'
                 type='text'
-                name='email'
+                name='userName'
                 placeholder='Email'
-                value={this.state.login.email}
+                value={this.state.login.userName}
                 onChange={(event) => this.handleChange(event)} />
 
             <input

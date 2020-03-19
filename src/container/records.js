@@ -34,6 +34,11 @@ const rows = [{
 class MyTable extends React.Component {
     constructor(props) {
         super(props);
+      let token = localStorage.getItem('token');
+      if(!token){
+        this.props.history.push('/');
+        window.location.reload();
+      }
         this.state = {
             rows: rows
         }
@@ -55,6 +60,32 @@ class MyTable extends React.Component {
 
     }
 
+    componentDidMount(){
+        var token=localStorage.getItem('token')
+        fetch('http://localhost:4000/users/get', {
+            method: 'GET',
+        
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization':token
+            }
+          }).then(response => {
+              
+          var  statusCode = response.status;
+            if (statusCode == 401) {
+              return 
+            }else{
+
+                return response.json();
+            }
+ 
+          }).then((parsedJSON) => {
+              console.log(parsedJSON)
+            this.setState({
+                rows:parsedJSON.data
+            })
+          });
+    }
     handleChange(event) {
         const myItems = this.state.rows;
         console.log(event.target);
@@ -122,7 +153,7 @@ this.props.history.push('/edit');
                                         <TableCell>{row.id}</TableCell>
                                         <TableCell>{row.firstName + row.lastName}</TableCell>
                                         <TableCell>{row.profDesignation}</TableCell>
-                                        <TableCell>{row.gender}</TableCell>
+                                        <TableCell>{row.Gender}</TableCell>
 
                                         <TableCell > <p className={(row.status == 'Pending') ? 'pending' : 'normal'}>{row.status}</p></TableCell>
                                         <TableCell><button className="btn"  onClick={()=>this.onSubmit(row)}>Edit</button></TableCell>

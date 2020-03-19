@@ -5,16 +5,16 @@ const Schema = mongoose.Schema;
 const doctorschema = new Schema({
 
     firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
+    lastName: { type: String,},
     middleName: { type: String },
     profDesignation: { type: String, required: true },
-    gender: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
+    Gender: { type: String, required: true },
+    email: { type: String,null:true},
     status: { type: String, },
     language1: { type: String, },
     language2: { type: String, },
     speciality: { type: String, },
-    Notes: { type: String, },
+    notes: { type: String, },
     disposition: { type: String, }
 });
 const Doctors = mongoose.model('doctors', doctorschema);
